@@ -1,0 +1,93 @@
+.outer-area {
+    display: flex;
+    height: 500px;
+    width: 500px;
+    border: 3px solid darkgreen;
+    background-color: #f2f9f1;
+    justify-content: center;
+    align-items: center;
+}
+
+.display-area {
+    display: flex;
+    height: 450px;
+    width: 350px;
+    border: 3px solid darkgreen;
+    background-color: #ddeedf;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.screen-output {
+    height: 75px;
+    width: 300px;
+    border: 3px solid darkgreen;
+    background-color: #f2f9f1;
+    margin-top: 25px;
+}
+
+.button-area {
+    display: flex;
+    height: 300px;
+    width: 300px;
+    border: 3px solid darkgreen;
+    margin-bottom: 25px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.number-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.row-1 button, .row-2 button, .row-3 button, .row-4 button{
+    width: 40px;
+    height: 40px;
+    background-color: #fcfefe;
+    border: none;
+    font-size: x-large;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.row-5 button {
+    width: 100%;
+    height: 40px;
+    color: white;
+    background-color: #b6cdbd;
+    border: none;
+    font-size: x-large;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.number-buttons button:hover {
+    background-color: #b6cdbd;
+}
+
+.row-5 button:hover, .button-column button:hover {
+    background-color: #5c715e;
+}
+
+.row-1 button:active, .row-2 button:active,
+.row-3 button:active, .row-4 button:active,
+.row-5 button:active, .button-column button:active {
+    background-color: darkseagreen;
+}
+
+.button-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.button-column button {
+    height: 40px;
+    width: 40px;
+    color: white;
+    background-color: #b6cdbd;
+    border: none;
+    font-size: x-large;
+    font-family: 'Courier New', Courier, monospace;
+}
