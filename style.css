@@ -20,11 +20,30 @@
 }
 
 .screen-output {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 75px;
     width: 300px;
     border: 3px solid darkgreen;
     background-color: #f2f9f1;
     margin-top: 25px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.preview-area {
+    font-size: large;
+    text-align: end;
+    margin-bottom: auto;
+    margin-right: 10px;
+}
+
+.number-area {
+    font-size: xx-large;
+    font-weight: 700;
+    text-align: end;
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
 
 .button-area {
