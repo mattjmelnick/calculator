@@ -24,49 +24,76 @@ for (const button of numberButtons) {
         previewArea.textContent = previewArea.textContent.substring(0, 10);
     });
 }
-
 // Clear the display areas back to 0
 let clearButton = document.querySelector(".clear");
 clearButton.addEventListener("click", () => {
     numberArea.textContent = "0";
     previewArea.textContent = "0";
-    sequence = [];
+    firstNum = [];
+    operatorSign = [];
+    secondNum = [];
 });
-
-let sequence = [];
+// Create arrays to hold the numbers and operators when clicked
+let firstNum = [];
+let operatorSign = [];
+let secondNum = [];
+// Select operator buttons from an array
 let operatorButtons = Array.from(document.querySelectorAll(".operator"));
+// Iterate over the array to input operators
 for (const button of operatorButtons) {
     button.addEventListener("click", () => {
-        previewArea.textContent += button.textContent;
-        sequence.push(numberArea.textContent);
-        sequence.push(button.textContent);
-        if (isNaN(sequence[-1]) && sequence.length != 2) {
-            previewArea.textContent = previewArea.textContent.slice(0, -2);
+        // Check the first time an operator is pressed
+        if (firstNum.length === 0) {
             previewArea.textContent += button.textContent;
-            sequence = [];
-            sequence.push(numberArea.textContent);
-            sequence.push(button.textContent);
-            console.log(sequence);
+            firstNum.push(numberArea.textContent);
+            operatorSign.push(button.textContent);
+        }
+        // Default procedure for chained operations
+        else if (firstNum.length === 1) {
+            let num1 = Number(firstNum[0]);
+            let num2 = Number(numberArea.textContent);
+            let operator = operatorSign[0];
+            let result = operate(num1, operator, num2);
+            firstNum.pop();
+            firstNum.push(result);
+            num1 = Number(firstNum[0]);
+            operatorSign.pop();
+            operatorSign.push(button.textContent);
+            operator = operatorSign[0];
+            previewArea.textContent = "";
+            previewArea.textContent += num1 + operator;
+            numberArea.textContent = "";
+            numberArea.textContent += result;
         }
     });
-};
-
+}
+// Select the equals button
 let equalsButton = document.querySelector(".equals");
+// Calculate the total for the operation
 equalsButton.addEventListener("click", () => {
     if (previewArea.textContent === "0" && previewArea.textContent.length == 1) {
         previewArea.textContent += equalsButton.textContent;
     }
-    sequence.push(numberArea.textContent);
-    if (numberArea.textContent !== "0") {
-        let num1 = Number(sequence[0]);
-        let operator = sequence[1];
-        let num2 = Number(sequence[2]);
-        let result = operate(num1, operator, num2);
+    if (numberArea.textContent !== "0" && secondNum.length === 0) {
+        let num1 = Number(firstNum[0]);
+        let operator = operatorSign[0];
+        secondNum.push(numberArea.textContent);
+        let num2 = Number(secondNum[0]);
+        let equals = operate(num1, operator, num2);
         numberArea.textContent = "";
-        numberArea.textContent += result;
+        numberArea.textContent += equals;
+    }
+    else {
+        let num1 = Number(firstNum[0]);
+        let operator = operatorSign[0];
+        secondNum.push(numberArea.textContent);
+        let num2 = Number(secondNum[0]);
+        let equals = operate(num1, operator, num2);
+        numberArea.textContent = "";
+        numberArea.textContent += equals;
     }
 });
-
+// Create function to perform the operations based on the operator
 function operate(num1, operator, num2) {
     switch (operator) {
         case "+":
