@@ -43,7 +43,7 @@ let operatorButtons = Array.from(document.querySelectorAll(".operator"));
 for (const button of operatorButtons) {
     button.addEventListener("click", () => {
         // Check the first time an operator is pressed
-        if (firstNum.length === 0) {
+        if (firstNum.length === 0 && operatorSign.length === 0 && secondNum.length === 0) {
             previewArea.textContent += button.textContent;
             firstNum.push(numberArea.textContent);
             operatorSign.push(button.textContent);
@@ -65,6 +65,16 @@ for (const button of operatorButtons) {
             numberArea.textContent = "";
             numberArea.textContent += result;
         }
+        else if (firstNum.length === 0 && operatorSign.length === 1 && secondNum.length === 1) {
+            operatorSign.pop();
+            operatorSign.push(button.textContent);
+            let operator = operatorSign[0];
+            previewArea.textContent = "";
+            previewArea.textContent += numberArea.textContent + operator;
+            console.log(firstNum);
+            console.log(operatorSign);
+            console.log(secondNum);
+        }
     });
 }
 // Select the equals button
@@ -82,15 +92,19 @@ equalsButton.addEventListener("click", () => {
         let equals = operate(num1, operator, num2);
         numberArea.textContent = "";
         numberArea.textContent += equals;
+        firstNum.pop();
     }
     else {
+        firstNum.push(numberArea.textContent);
         let num1 = Number(firstNum[0]);
         let operator = operatorSign[0];
-        secondNum.push(numberArea.textContent);
         let num2 = Number(secondNum[0]);
         let equals = operate(num1, operator, num2);
         numberArea.textContent = "";
         numberArea.textContent += equals;
+        firstNum.pop();
+        previewArea.textContent = "";
+        previewArea.textContent += num1 + operator + num2;
     }
 });
 // Create function to perform the operations based on the operator
@@ -103,7 +117,7 @@ function operate(num1, operator, num2) {
         case "*":
             return Number(num1) * Number(num2);
         case "/":
-            if (num2 == 0) {
+            if (num2 === 0) {
                 return "Error";
             }
             else {
